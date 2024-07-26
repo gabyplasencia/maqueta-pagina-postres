@@ -25,7 +25,7 @@ fetch("./data.json")
 
             const cartBtn = document.createElement("button");
             cartBtn.id = card.id;
-            cartBtn.className = "cart-btn";
+            cartBtn.className = "product__cart-btn";
             cartBtn.innerHTML = "Add to Cart";
             wrapperImg.appendChild(cartBtn);
 

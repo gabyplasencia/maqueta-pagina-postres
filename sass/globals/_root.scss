@@ -14,8 +14,14 @@
 
     --ff-main: "Red Hat Text", sans-serif;
 
-    --fz-small: 1rem;
+    --fz-small: 1.1rem;
     --fz-medium: 1.2rem;
-    --fz-medium-big: 1.6rem;
-    --fz-big: 2rem;
+    --fz-medium-big: 1.5rem;
+    --fz-big: 3rem;
+}
+
+@mixin media ($width) {
+        @media (min-width: $width) {
+            @content;
+        }
 }

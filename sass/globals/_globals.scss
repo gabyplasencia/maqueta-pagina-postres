@@ -1,4 +1,26 @@
+@use "./root" as r;
+
 body {
     background-color: var(--rose-50);
     font-family: var(--ff-main);
+}
+
+.section-title {
+    font-size: var(--fz-big);
+    font-weight: var(--fw-700);
+    margin-bottom: 2rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    width: 88dvw;
+    margin: 1rem auto;
+    @include r.media(760px){
+        width: 90dvw;
+    }
+    @include r.media(1440px){
+        flex-direction: row;
+    }
 }

@@ -11,10 +11,10 @@
   --fw-600: 600;
   --fw-700: 700;
   --ff-main: "Red Hat Text", sans-serif;
-  --fz-small: 1rem;
+  --fz-small: 1.1rem;
   --fz-medium: 1.2rem;
-  --fz-medium-big: 1.6rem;
-  --fz-big: 2rem;
+  --fz-medium-big: 1.5rem;
+  --fz-big: 3rem;
 }
 
 *, *::after, *::before {
@@ -39,4 +39,100 @@ span {
 body {
   background-color: var(--rose-50);
   font-family: var(--ff-main);
+}
+
+.section-title {
+  font-size: var(--fz-big);
+  font-weight: var(--fw-700);
+  margin-bottom: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 88dvw;
+  margin: 1rem auto;
+}
+@media (min-width: 760px) {
+  .container {
+    width: 90dvw;
+  }
+}
+@media (min-width: 1440px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+.product__container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 760px) {
+  .product__container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1440px) {
+  .product__container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.product__wrapper-img {
+  position: relative;
+  height: 15rem;
+  border-radius: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 2.8rem;
+}
+@media (min-width: 760px) {
+  .product__wrapper-img {
+    height: 18rem;
+  }
+}
+@media (min-width: 1440px) {
+  .product__wrapper-img {
+    width: 20rem;
+  }
+}
+.product__cart-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(50%);
+  background-color: white;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.8rem 2rem;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  align-items: center;
+  border: 2px solid var(--rose-400);
+  border-radius: 100px;
+  font-weight: var(--fw-600);
+  font-size: var(--fz-small);
+}
+.product__cart-btn .cart-icon {
+  height: 1.6rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.product__category {
+  font-size: var(--fz-medium);
+  font-weight: 500;
+  color: var(--rose-500);
+}
+.product__name {
+  font-weight: var(--fw-600);
+  color: var(--rose-900);
+  font-size: var(--fz-medium-big);
+  margin-block: 0.3rem;
+}
+.product__price {
+  font-weight: var(--fw-600);
+  color: var(--red);
+  font-size: var(--fz-medium-big);
 }/*# sourceMappingURL=style.css.map */
