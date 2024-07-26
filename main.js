@@ -44,7 +44,7 @@ fetch("./data.json")
             productName.className = "product__name";
             productName.innerHTML = card.name;
 
-            const price = document.createElement("h2");
+            const price = document.createElement("p");
             price.className = "product__price";
             price.innerHTML = `$${card.price}`;
 

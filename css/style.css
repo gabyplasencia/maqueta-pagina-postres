@@ -1,1 +1,42 @@
-/*# sourceMappingURL=style.css.map */
+:root {
+  --red: hsl(14, 86%, 42%);
+  --green: hsl(159, 69%, 38%);
+  --rose-50: hsl(20, 50%, 98%);
+  --rose-100: hsl(13, 31%, 94%);
+  --rose-300: hsl(14, 25%, 72%);
+  --rose-400: hsl(7, 20%, 60%);
+  --rose-500: hsl(12, 20%, 44%);
+  --rose-900: hsl(14, 65%, 9%);
+  --fw-400: 400;
+  --fw-600: 600;
+  --fw-700: 700;
+  --ff-main: "Red Hat Text", sans-serif;
+  --fz-small: 1rem;
+  --fz-medium: 1.2rem;
+  --fz-medium-big: 1.6rem;
+  --fz-big: 2rem;
+}
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+a,
+span {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+body {
+  background-color: var(--rose-50);
+  font-family: var(--ff-main);
+}/*# sourceMappingURL=style.css.map */
