@@ -6,14 +6,18 @@ body {
 }
 
 .section-title {
-    font-size: var(--fz-big);
+    font-size: var(--fz-bigger);
     font-weight: var(--fw-700);
     margin-bottom: 2rem;
+    @include r.media(1440px){
+        margin-bottom: 1.5rem;
+    }
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
 
     width: 88dvw;
     margin: 1rem auto;
@@ -21,6 +25,7 @@ body {
         width: 90dvw;
     }
     @include r.media(1440px){
+        width: fit-content;
         flex-direction: row;
     }
 }

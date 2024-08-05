@@ -1,3 +1,9 @@
+@mixin media ($width) {
+    @media (min-width: $width) {
+        @content;
+    }
+}
+
 :root {
     --red: hsl(14, 86%, 42%);
     --green: hsl(159, 69%, 38%);
@@ -17,11 +23,15 @@
     --fz-small: 1.1rem;
     --fz-medium: 1.2rem;
     --fz-medium-big: 1.5rem;
-    --fz-big: 3rem;
+    --fz-big: 2rem;
+    --fz-bigger: 3rem;
+
+    @include media(1440px){
+        --fz-small: 0.9rem;
+        --fz-medium: 1rem;
+        --fz-medium-big: 1.15rem;
+        --fz-big: 1.6rem;
+        --fz-bigger: 2.5rem;
+    }
 }
 
-@mixin media ($width) {
-        @media (min-width: $width) {
-            @content;
-        }
-}
