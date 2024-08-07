@@ -56,7 +56,6 @@
     &__cart-btn-add {
         background-color: white;
         display: flex;
-        display: none;
         flex-direction: row-reverse;
         gap: 0.5rem;
         align-items: center;
@@ -64,6 +63,13 @@
         border: 2px solid var(--rose-400);
         font-weight: var(--fw-600);
         font-size: var(--fz-small);
+        cursor: pointer;
+        transition: all 150ms ease;
+    }
+
+    &__cart-btn-add:hover {
+        color: var(--red);
+        border-color: var(--red);
     }
 
     &__cart-btn-quantity {
@@ -77,15 +83,34 @@
         align-items: center;
         justify-content: space-between;
 
-        .plus-item,
-        .minus-item {
+        .plus-btn,
+        .minus-btn {
             background-color: transparent;
             border: 2px solid var(--rose-50);
-            padding: 0.15rem;
+            display: grid;
+            place-items: center;
+            padding: 0.18rem;
             border-radius: 100px;
             font-size: 1px;
-            height: 17px;
+            height: 18px;
             aspect-ratio: 1;
+            cursor: pointer;
+            transition: all 150ms ease;
+        }
+
+        .plus-icon,
+        .minus-icon {
+            fill: var(--rose-50);
+        }
+
+        .plus-btn:hover,
+        .minus-btn:hover {
+            background-color: var(--rose-50);
+
+            .plus-icon,
+            .minus-icon {
+                fill: var(--red);
+            }
         }
     }
 

@@ -39,32 +39,39 @@ fetch("./data.json")
             cartBtnQuantity.classList.add("product__cart-btn", "product__cart-btn-quantity");
             cartBtnQuantity.id = card.id;
             wrapperImg.appendChild(cartBtnQuantity);
+            cartBtnQuantity.style.display = "none";
 
             const cartBtnSum = document.createElement("button");
-            cartBtnSum.className = "plus-item";
-            const plusIcon = document.createElement("img");
-            plusIcon.className = "plus-icon";
-            plusIcon.src = "./assets/images/icon-increment-quantity.svg";
-            plusIcon.alt = "add one more item";
+            cartBtnSum.className = "plus-btn";
+            const plusIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            plusIcon.setAttribute("class", "plus-icon");
+            plusIcon.setAttribute("viewBox", "0 0 10 10");
+            plusIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            const plusPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            plusPath.setAttribute("d", "M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z");
+            plusIcon.appendChild(plusPath);
+            
             cartBtnSum.appendChild(plusIcon);
 
             const itemQuantity = document.createElement("span");
             itemQuantity.className = "quantity-item";
-            itemQuantity.innerHTML = "0";
+            itemQuantity.innerHTML = "1";
 
             const cartBtnRest = document.createElement("button");
-            cartBtnRest.className = "minus-item";
-            const minusIcon = document.createElement("img");
-            minusIcon.className = "minus-icon";
-            minusIcon.src = "./assets/images/icon-decrement-quantity.svg";
-            minusIcon.alt = "take out one item";
+            cartBtnRest.className = "minus-btn";
+            const minusIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            minusIcon.setAttribute("class", "minus-icon");
+            minusIcon.setAttribute("viewBox", "0 0 10 2");
+            minusIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            const minusPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            minusPath.setAttribute("d", "M0 .375h10v1.25H0V.375Z");
+            minusIcon.appendChild(minusPath);
+
             cartBtnRest.appendChild(minusIcon);
 
             cartBtnQuantity.appendChild(cartBtnRest);
             cartBtnQuantity.appendChild(itemQuantity);
             cartBtnQuantity.appendChild(cartBtnSum);
-
-
 
             const category = document.createElement("h3");
             category.className = "product__category";
@@ -86,3 +93,17 @@ fetch("./data.json")
             productContainer.appendChild(productCard);
         })
     })
+
+const plusBtn = document.querySelectorAll(".plus-btn");
+const minusBtn = document.querySelectorAll(".minus-btn");
+const addCartBtn = document.querySelectorAll(".product__cart-btn-add");
+
+//add to cart function
+
+addCartBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+        console.log("click");
+    })
+})
+
