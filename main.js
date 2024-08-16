@@ -28,6 +28,7 @@ fetch("./data.json")
             cartBtnAdd.innerHTML = "Add to Cart";
             wrapperImg.appendChild(cartBtnAdd);
 
+
             const cartIcon = document.createElement("img");
             cartIcon.className = "cart-icon";
             cartIcon.src = "./assets/images/icon-add-to-cart.svg";
@@ -55,7 +56,7 @@ fetch("./data.json")
 
             const itemQuantity = document.createElement("span");
             itemQuantity.className = "quantity-item";
-            itemQuantity.innerHTML = "1";
+            itemQuantity.innerHTML = "0";
 
             const cartBtnRest = document.createElement("button");
             cartBtnRest.className = "minus-btn";
@@ -91,19 +92,42 @@ fetch("./data.json")
             productCard.appendChild(price);
 
             productContainer.appendChild(productCard);
+
+
+            // add cart button function
+
+            cartBtnAdd.addEventListener('click', () => {
+
+                cartBtnAdd.style.display = "none";
+                cartBtnAdd.parentElement.classList.add("selected");
+                cartBtnAdd.nextElementSibling.style.display = "flex";
+            })
+
+            // quantities buttons function
+
+            cartBtnRest.addEventListener('click', () => {
+                let currentQuantity = parseInt(cartBtnRest.nextElementSibling.innerHTML);
+                
+                if (currentQuantity == 0 || currentQuantity < 0) {
+                    let btnQttAux = cartBtnRest.parentElement;
+                    let btnAddAux = btnQttAux.previousElementSibling;
+
+                    btnAddAux.style.display = "flex";
+                    btnAddAux.parentElement.classList.remove("selected");
+                    btnQttAux.style.display = "none";
+                }
+                else if (currentQuantity > 0) {
+                    currentQuantity--;
+                    cartBtnRest.nextElementSibling.innerHTML = currentQuantity;
+                }
+            })
+
+            cartBtnSum.addEventListener('click', () => {
+                let currentQuantity = parseInt(cartBtnSum.previousElementSibling.innerHTML);
+                currentQuantity++;
+                cartBtnSum.previousElementSibling.innerHTML = currentQuantity;
+            })
         })
     })
 
-const plusBtn = document.querySelectorAll(".plus-btn");
-const minusBtn = document.querySelectorAll(".minus-btn");
-const addCartBtn = document.querySelectorAll(".product__cart-btn-add");
-
-//add to cart function
-
-addCartBtn.forEach(btn => {
-    btn.addEventListener('click', () => {
-
-        console.log("click");
-    })
-})
 

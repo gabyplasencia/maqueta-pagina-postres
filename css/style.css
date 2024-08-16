@@ -161,6 +161,9 @@ body {
     height: 15rem;
   }
 }
+.product__wrapper-img.selected {
+  border: 3px solid var(--red);
+}
 .product__cart-btn {
   position: absolute;
   left: 50%;

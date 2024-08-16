@@ -29,6 +29,10 @@
         }
     }
 
+    &__wrapper-img.selected {
+        border: 3px solid var(--red);
+    }
+
     &__cart-btn {
         position: absolute;
         left: 50%;
