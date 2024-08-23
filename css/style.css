@@ -135,6 +135,50 @@ body {
   text-wrap: balance;
 }
 
+.total-bill {
+  display: flex;
+  justify-content: space-between;
+}
+.total-bill__text {
+  font-weight: var(--fw-600);
+  color: var(--rose-500);
+}
+.total-bill__cost {
+  font-weight: var(--fw-700);
+  color: var(--rose-900);
+  font-size: var(--fz-big);
+}
+
+#confirm-order {
+  border: none;
+  border-radius: 100px;
+  padding: 1.1rem 2rem;
+  background-color: var(--red);
+  color: var(--rose-50);
+  font-weight: var(--fw-600);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.carbon-neutral__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 8px;
+  background-color: var(--rose-50);
+  padding-block: 1rem;
+}
+.carbon-neutral__icon {
+  height: 25px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+#confirm-order:hover {
+  background-color: hsl(13, 79%, 30%);
+}
+
 .item-in-cart-wrapper {
   display: grid;
   grid-template-columns: 1fr 0.1fr;

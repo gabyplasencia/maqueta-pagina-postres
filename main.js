@@ -3,6 +3,7 @@ const cartEmpty = document.querySelector(".wrapper-cart-empty");
 const cartWithItems = document.querySelector(".wrapper-cart-with-items");
 const cartItemsNumber = document.getElementById('items-number');
 const cartItemsWrapper = document.querySelector(".cart-items-wrapper");
+const billCost = document.getElementById("bill-cost");
 
 fetch("./data.json")
     .then(respond => respond.json())
@@ -145,12 +146,19 @@ fetch("./data.json")
                 
                 let productName = removeItemBtn.parentElement.children[0].textContent;
 
+                let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
+
                 let currentitemId;
+                let sumPrice;
 
                 data.forEach(d => { if(d.name == productName) {
                     currentitemId = d.id;
+                    sumPrice = d.price.toFixed(2);
                     }
                 });
+
+                currentBillCost = parseFloat(currentBillCost) - parseFloat(sumPrice);
+                billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
 
                 let btnAddAux = document.getElementById(currentitemId);
                 let btnQttAux = btnAddAux.nextElementSibling;
@@ -171,20 +179,29 @@ fetch("./data.json")
                 cartBtnAdd.style.display = "none";
                 cartBtnAdd.parentElement.classList.add("selected");
                 cartBtnAdd.nextElementSibling.style.display = "flex";
+
                 let currentItemsInCart = parseInt(cartItemsNumber.innerHTML)+1;
                 cartItemsNumber.innerHTML = currentItemsInCart;
+
+                let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
 
                 cartEmpty.style.display = "none";
                 cartWithItems.style.display = "flex";
 
                 qttItemInCart.innerHTML = `${cartBtnAdd.nextElementSibling.children[1].textContent}x`;
+
+                let sumPrice;
                 
                 data.forEach(d => { if(d.id == cartBtnAdd.id) {
                     productInCartName.innerHTML = d.name;
                     productPrice.innerHTML = `@ $${d.price.toFixed(2)}`;
                     productPriceTotal.innerHTML = `$${d.price.toFixed(2)}`;
+                    sumPrice = d.price.toFixed(2);
                     }
                 });
+
+                currentBillCost = parseFloat(currentBillCost) + parseFloat(sumPrice);
+                billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
 
                 cartItemsWrapper.appendChild(itemInCartWrapper);
 
@@ -215,11 +232,17 @@ fetch("./data.json")
                 let currentSpan = currentItem.querySelector(".item-in-cart__product-quantity");
                 currentSpan.innerHTML = `${currentQuantity}x`;
 
+                let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
+
                 let productPrice;
+
                 data.forEach(d => { if(d.id == btnAddAux.id) {
                     productPrice = d.price.toFixed(2);
                     }
                 });
+
+                currentBillCost = parseFloat(currentBillCost) + parseFloat(productPrice);
+                billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
 
                 let currentTotalPrice = currentItem.querySelector(".item-in-cart__product-price-total");
                 currentTotalPrice.innerHTML = `$${(currentQuantity*productPrice).toFixed(2)}`;
@@ -241,6 +264,17 @@ fetch("./data.json")
                     btnQttAux.style.display = "none";
                     cartItemsNumber.innerHTML = currentItemsInCart;
 
+                    let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
+
+                    let productPrice;
+                    data.forEach(d => { if(d.id == btnAddAux.id) {
+                        productPrice = d.price.toFixed(2);
+                        }
+                    });
+
+                    currentBillCost = parseFloat(currentBillCost) - parseFloat(productPrice);
+                    billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
+
                     currentItem.remove();
                 }
                 else if (currentQuantity > 0) {
@@ -253,11 +287,16 @@ fetch("./data.json")
                     let currentSpan = currentItem.querySelector(".item-in-cart__product-quantity");
                     currentSpan.innerHTML = `${currentQuantity}x`;
 
+                    let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
+
                     let productPrice;
                     data.forEach(d => { if(d.id == btnAddAux.id) {
                         productPrice = d.price.toFixed(2);
                         }
                     });
+
+                    currentBillCost = parseFloat(currentBillCost) - parseFloat(productPrice);
+                    billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
     
                     let currentTotalPrice = currentItem.querySelector(".item-in-cart__product-price-total");
                     currentTotalPrice.innerHTML = `$${(currentQuantity*productPrice).toFixed(2)}`;
