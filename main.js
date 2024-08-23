@@ -1,4 +1,8 @@
 const productContainer = document.querySelector(".product__container");
+const cartEmpty = document.querySelector(".wrapper-cart-empty");
+const cartWithItems = document.querySelector(".wrapper-cart-with-items");
+const cartItemsNumber = document.getElementById('items-number');
+const cartItemsWrapper = document.querySelector(".cart-items-wrapper");
 
 fetch("./data.json")
     .then(respond => respond.json())
@@ -25,6 +29,7 @@ fetch("./data.json")
 
             const cartBtnAdd = document.createElement("button");
             cartBtnAdd.classList.add("product__cart-btn", "product__cart-btn-add");
+            cartBtnAdd.id = card.id;
             cartBtnAdd.innerHTML = "Add to Cart";
             wrapperImg.appendChild(cartBtnAdd);
 
@@ -38,7 +43,6 @@ fetch("./data.json")
 
             const cartBtnQuantity = document.createElement("div");
             cartBtnQuantity.classList.add("product__cart-btn", "product__cart-btn-quantity");
-            cartBtnQuantity.id = card.id;
             wrapperImg.appendChild(cartBtnQuantity);
             cartBtnQuantity.style.display = "none";
 
@@ -56,7 +60,7 @@ fetch("./data.json")
 
             const itemQuantity = document.createElement("span");
             itemQuantity.className = "quantity-item";
-            itemQuantity.innerHTML = "0";
+            itemQuantity.innerHTML = "1";
 
             const cartBtnRest = document.createElement("button");
             cartBtnRest.className = "minus-btn";
@@ -101,32 +105,96 @@ fetch("./data.json")
                 cartBtnAdd.style.display = "none";
                 cartBtnAdd.parentElement.classList.add("selected");
                 cartBtnAdd.nextElementSibling.style.display = "flex";
+                let currentItemsInCart = parseInt(cartItemsNumber.innerHTML)+1;
+                cartItemsNumber.innerHTML = currentItemsInCart;
+
+                cartEmpty.style.display = "none";
+                cartWithItems.style.display = "flex";
+
+                const itemInCartWrapper = document.createElement("div");
+                itemInCartWrapper.classList.add("item-in-cart-wrapper");
+                itemInCartWrapper.classList.add(`c${cartBtnAdd.id}`);
+
+                const qqtAndTotalWrapper = document.createElement("div");
+                qqtAndTotalWrapper.className = "quantity-total-wrapper";
+
+                const productInCartName = document.createElement("strong");
+                productInCartName.className = "product-name-in-cart";
+
+                const qqtItemInCart = document.createElement("span");
+                qqtItemInCart.className = "product-order-quantity";
+
+                qqtItemInCart.innerHTML = `${cartBtnAdd.nextElementSibling.children[1].textContent}x`;
+                
+                data.forEach(d => { if(d.id == cartBtnAdd.id) {
+                    productInCartName.innerHTML = d.name;
+                    }
+                });
+
+                itemInCartWrapper.appendChild(productInCartName);
+                itemInCartWrapper.appendChild(qqtAndTotalWrapper);
+                itemInCartWrapper.appendChild(qqtItemInCart);
+                qqtAndTotalWrapper.appendChild(qqtItemInCart);
+
+                cartItemsWrapper.appendChild(itemInCartWrapper);
             })
 
             // quantities buttons function
 
+            
+            cartBtnSum.addEventListener('click', () => {
+                let currentQuantity = parseInt(cartBtnSum.previousElementSibling.innerHTML);
+                let currentItemsInCart = parseInt(cartItemsNumber.innerHTML);
+
+                currentQuantity++;
+                currentItemsInCart++;
+
+                cartBtnSum.previousElementSibling.innerHTML = currentQuantity;
+                cartItemsNumber.innerHTML = currentItemsInCart;
+
+                let btnQttAux = cartBtnRest.parentElement;
+                let btnAddAux = btnQttAux.previousElementSibling;
+                let currentItem = cartItemsWrapper.querySelector(`.c${btnAddAux.id}`);
+
+                let currentSpan = currentItem.querySelector(".product-order-quantity");
+                currentSpan.innerHTML = `${currentQuantity}x`;
+            })
+
             cartBtnRest.addEventListener('click', () => {
                 let currentQuantity = parseInt(cartBtnRest.nextElementSibling.innerHTML);
+                let currentItemsInCart = parseInt(cartItemsNumber.innerHTML);
+
+                let btnQttAux = cartBtnRest.parentElement;
+                let btnAddAux = btnQttAux.previousElementSibling;
+                let currentItem = cartItemsWrapper.querySelector(`.c${btnAddAux.id}`);
                 
-                if (currentQuantity == 0 || currentQuantity < 0) {
-                    let btnQttAux = cartBtnRest.parentElement;
-                    let btnAddAux = btnQttAux.previousElementSibling;
+                if (currentQuantity <= 1) {
+                    currentItemsInCart--;
 
                     btnAddAux.style.display = "flex";
                     btnAddAux.parentElement.classList.remove("selected");
                     btnQttAux.style.display = "none";
+                    cartItemsNumber.innerHTML = currentItemsInCart;
+
+                    currentItem.remove();
                 }
                 else if (currentQuantity > 0) {
                     currentQuantity--;
+                    currentItemsInCart--;
+
                     cartBtnRest.nextElementSibling.innerHTML = currentQuantity;
+                    cartItemsNumber.innerHTML = currentItemsInCart;
+
+                    let currentSpan = currentItem.querySelector(".product-order-quantity");
+                    currentSpan.innerHTML = `${currentQuantity}x`;
+                }
+
+                if (currentItemsInCart == 0) {
+                    cartEmpty.style.display = "flex";
+                    cartWithItems.style.display = "none";
                 }
             })
 
-            cartBtnSum.addEventListener('click', () => {
-                let currentQuantity = parseInt(cartBtnSum.previousElementSibling.innerHTML);
-                currentQuantity++;
-                cartBtnSum.previousElementSibling.innerHTML = currentQuantity;
-            })
         })
     })
 

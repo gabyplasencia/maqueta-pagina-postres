@@ -96,6 +96,11 @@ body {
   }
 }
 
+.wrapper-cart-with-items {
+  display: none;
+  border: 1px solid red;
+}
+
 .wrapper-cart-empty {
   display: flex;
   flex-direction: column;
