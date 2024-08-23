@@ -88,7 +88,7 @@ fetch("./data.json")
 
             const price = document.createElement("p");
             price.className = "product__price";
-            price.innerHTML = `$${card.price}`;
+            price.innerHTML = `$${card.price.toFixed(2)}`;
 
             productCard.appendChild(wrapperImg);
             productCard.appendChild(category);
@@ -97,6 +97,72 @@ fetch("./data.json")
 
             productContainer.appendChild(productCard);
 
+
+            //item in cart structure
+
+            const itemInCartWrapper = document.createElement("div");
+            itemInCartWrapper.classList.add("item-in-cart-wrapper");
+            itemInCartWrapper.classList.add(`c${cartBtnAdd.id}`);
+
+            const qttAndTotalWrapper = document.createElement("div");
+            qttAndTotalWrapper.className = "item-in-cart__quantity-and-total-wrapper";
+
+            const productInCartName = document.createElement("strong");
+            productInCartName.className = "item-in-cart__product-name";
+
+            const qttItemInCart = document.createElement("span");
+            qttItemInCart.className = "item-in-cart__product-quantity";
+
+            const productPrice = document.createElement("span");
+            productPrice.className = "item-in-cart__product-price";
+
+            const productPriceTotal = document.createElement("span");
+            productPriceTotal.className = "item-in-cart__product-price-total";
+
+            const removeItemBtn = document.createElement("button");
+            removeItemBtn.className = "item-in-cart__remove-btn";
+            const removeIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            removeIcon.setAttribute("class", "remove-icon");
+            removeIcon.setAttribute("viewBox", "0 0 10 10");
+            removeIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            const removePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            removePath.setAttribute("d", "M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z");
+            removeIcon.appendChild(removePath);
+            removeItemBtn.appendChild(removeIcon);
+
+            removeItemBtn.addEventListener('click', () => {
+                let currentSpan = removeItemBtn.previousElementSibling.children[0];
+                let quantityToRemove = currentSpan.textContent.slice(0, -1);
+               
+                let currentItemsInCart = parseInt(cartItemsNumber.innerHTML);
+                let quantityLeft = currentItemsInCart - quantityToRemove;
+                cartItemsNumber.innerHTML = quantityLeft;
+
+                if (quantityLeft == 0 ) {
+                    cartEmpty.style.display = "flex";
+                    cartWithItems.style.display = "none";
+                }
+                
+                let productName = removeItemBtn.parentElement.children[0].textContent;
+
+                let currentitemId;
+
+                data.forEach(d => { if(d.name == productName) {
+                    currentitemId = d.id;
+                    }
+                });
+
+                let btnAddAux = document.getElementById(currentitemId);
+                let btnQttAux = btnAddAux.nextElementSibling;
+
+                btnQttAux.children[1].innerHTML = "1";
+                
+                btnAddAux.style.display = "flex";
+                btnAddAux.parentElement.classList.remove("selected");
+                btnQttAux.style.display = "none";
+
+                removeItemBtn.parentElement.remove();
+            })
 
             // add cart button function
 
@@ -111,37 +177,27 @@ fetch("./data.json")
                 cartEmpty.style.display = "none";
                 cartWithItems.style.display = "flex";
 
-                const itemInCartWrapper = document.createElement("div");
-                itemInCartWrapper.classList.add("item-in-cart-wrapper");
-                itemInCartWrapper.classList.add(`c${cartBtnAdd.id}`);
-
-                const qqtAndTotalWrapper = document.createElement("div");
-                qqtAndTotalWrapper.className = "quantity-total-wrapper";
-
-                const productInCartName = document.createElement("strong");
-                productInCartName.className = "product-name-in-cart";
-
-                const qqtItemInCart = document.createElement("span");
-                qqtItemInCart.className = "product-order-quantity";
-
-                qqtItemInCart.innerHTML = `${cartBtnAdd.nextElementSibling.children[1].textContent}x`;
+                qttItemInCart.innerHTML = `${cartBtnAdd.nextElementSibling.children[1].textContent}x`;
                 
                 data.forEach(d => { if(d.id == cartBtnAdd.id) {
                     productInCartName.innerHTML = d.name;
+                    productPrice.innerHTML = `@ $${d.price.toFixed(2)}`;
+                    productPriceTotal.innerHTML = `$${d.price.toFixed(2)}`;
                     }
                 });
 
-                itemInCartWrapper.appendChild(productInCartName);
-                itemInCartWrapper.appendChild(qqtAndTotalWrapper);
-                itemInCartWrapper.appendChild(qqtItemInCart);
-                qqtAndTotalWrapper.appendChild(qqtItemInCart);
-
                 cartItemsWrapper.appendChild(itemInCartWrapper);
+
+                itemInCartWrapper.appendChild(productInCartName);
+                itemInCartWrapper.appendChild(qttAndTotalWrapper);
+                itemInCartWrapper.appendChild(removeItemBtn);
+                qttAndTotalWrapper.appendChild(qttItemInCart);
+                qttAndTotalWrapper.appendChild(productPrice);
+                qttAndTotalWrapper.appendChild(productPriceTotal);
             })
 
             // quantities buttons function
 
-            
             cartBtnSum.addEventListener('click', () => {
                 let currentQuantity = parseInt(cartBtnSum.previousElementSibling.innerHTML);
                 let currentItemsInCart = parseInt(cartItemsNumber.innerHTML);
@@ -156,8 +212,17 @@ fetch("./data.json")
                 let btnAddAux = btnQttAux.previousElementSibling;
                 let currentItem = cartItemsWrapper.querySelector(`.c${btnAddAux.id}`);
 
-                let currentSpan = currentItem.querySelector(".product-order-quantity");
+                let currentSpan = currentItem.querySelector(".item-in-cart__product-quantity");
                 currentSpan.innerHTML = `${currentQuantity}x`;
+
+                let productPrice;
+                data.forEach(d => { if(d.id == btnAddAux.id) {
+                    productPrice = d.price.toFixed(2);
+                    }
+                });
+
+                let currentTotalPrice = currentItem.querySelector(".item-in-cart__product-price-total");
+                currentTotalPrice.innerHTML = `$${(currentQuantity*productPrice).toFixed(2)}`;
             })
 
             cartBtnRest.addEventListener('click', () => {
@@ -185,8 +250,17 @@ fetch("./data.json")
                     cartBtnRest.nextElementSibling.innerHTML = currentQuantity;
                     cartItemsNumber.innerHTML = currentItemsInCart;
 
-                    let currentSpan = currentItem.querySelector(".product-order-quantity");
+                    let currentSpan = currentItem.querySelector(".item-in-cart__product-quantity");
                     currentSpan.innerHTML = `${currentQuantity}x`;
+
+                    let productPrice;
+                    data.forEach(d => { if(d.id == btnAddAux.id) {
+                        productPrice = d.price.toFixed(2);
+                        }
+                    });
+    
+                    let currentTotalPrice = currentItem.querySelector(".item-in-cart__product-price-total");
+                    currentTotalPrice.innerHTML = `$${(currentQuantity*productPrice).toFixed(2)}`;
                 }
 
                 if (currentItemsInCart == 0) {
