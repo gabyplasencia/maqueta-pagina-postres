@@ -82,6 +82,11 @@ body {
   }
 }
 
+.attribution {
+  text-align: center;
+  margin: 2.5rem auto;
+}
+
 #cart-section {
   background-color: white;
   border-radius: 15px;

@@ -149,14 +149,15 @@ fetch("./data.json")
                 let currentBillCost = parseFloat(billCost.innerHTML.slice(1)).toFixed(2);
 
                 let currentitemId;
-                let sumPrice;
+                let currentItemPrice;
 
                 data.forEach(d => { if(d.name == productName) {
                     currentitemId = d.id;
-                    sumPrice = d.price.toFixed(2);
+                    currentItemPrice = d.price.toFixed(2);
                     }
                 });
 
+                let sumPrice = currentItemPrice*quantityToRemove;
                 currentBillCost = parseFloat(currentBillCost) - parseFloat(sumPrice);
                 billCost.innerHTML = `$${parseFloat(currentBillCost).toFixed(2)}`;
 
