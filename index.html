@@ -20,6 +20,7 @@
     <section id="product-section">
       <h2 class="section-title">Desserts</h1>
       <div class="product__container">
+        
       </div>
     </section>
 
@@ -45,16 +46,32 @@
           </svg>
           <p class="carbon-neutral__text">This is a<strong> carbon-neutral </strong>delivery</p>
         </div>
-        <button id="confirm-order">Confirm Order</button>
+        <button id="confirm-order" class="btn">Confirm Order</button>
       </div>
     </section>
 
   </main>
 
+  <section id="order-confirmed-modal">
+    <img class="order-confirmed-icon" src="./assets/images/icon-order-confirmed.svg" alt="ok-icon" aria-hidden="true">
+    <h3 class="section-title">Order Confirmed</h3>
+    <p class="order-confirmed-modal-phrase">We hope you enjoy your food!</p>
+
+    <div class="total-order-wrapper">
+      <div class="final-products-order-wrapper">
+
+      </div>
+      <div class="total-bill-co">
+        <p class="total-bill-co__text">Order Total</p>
+        <span class="total-bill-co__cost" id="bill-cost-co"></span>
+      </div>
+    </div>
+
+    <button id="new-order" class="btn">Start New Order</button>
+  </section>
 
   <footer class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by Gaby Plasencia.
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a> - Coded by Gaby Plasencia.
   </footer>
 </body>
 </html>

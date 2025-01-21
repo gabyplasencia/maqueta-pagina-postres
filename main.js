@@ -4,10 +4,15 @@ const cartWithItems = document.querySelector(".wrapper-cart-with-items");
 const cartItemsNumber = document.getElementById('items-number');
 const cartItemsWrapper = document.querySelector(".cart-items-wrapper");
 const billCost = document.getElementById("bill-cost");
+const confirmOrderBtn = document.getElementById("confirm-order");
+const finalProductsOrder = document.querySelector(".final-products-order-wrapper");
+const billCostCO = document.getElementById("bill-cost-co");
+let loadedData = {};
 
 fetch("./data.json")
     .then(respond => respond.json())
     .then(data => {
+        loadedData = data;
         data.forEach(card => {
             const productCard = document.createElement("div");
             productCard.className = "product__card";
@@ -307,9 +312,65 @@ fetch("./data.json")
                     cartEmpty.style.display = "flex";
                     cartWithItems.style.display = "none";
                 }
-            })
-
-        })
-    })
+            });
 
 
+
+        });
+    });
+
+    confirmOrderBtn.addEventListener('click', () => {
+        const productsInOrder = document.querySelectorAll(".item-in-cart-wrapper");
+        
+        productsInOrder.forEach ( product => {
+            let productName = product.querySelector(".item-in-cart__product-name").textContent;
+            let productQtt = product.querySelector(".item-in-cart__product-quantity").textContent;
+            let productPrice = product.querySelector(".item-in-cart__product-price").textContent;
+            let totalCost = product.querySelector(".item-in-cart__product-price-total").textContent;
+
+            const productCOWrapper = document.createElement("div");
+            productCOWrapper.classList.add("product-co-wrapper");
+
+            const thumbnail = document.createElement("img");
+            thumbnail.className = "thumbnail";
+            thumbnail.setAttribute('aria-hidden', 'true');
+
+            loadedData.forEach( d => {
+                if(productName == d.name) {
+                    thumbnail.src = d.image.thumbnail;
+                    thumbnail.alt = d.name;
+                }
+            });
+
+            const productInfoWrapper = document.createElement("div");
+            productInfoWrapper.classList.add("product-info-wrapper");
+
+            const productNameCO = document.createElement("strong");
+            productNameCO.className = "product-co__name";
+            productNameCO.innerHTML = productName;
+
+            const productQttCO = document.createElement("p");
+            productQttCO.className = "product-co__quantity";
+            productQttCO.innerHTML = productQtt;
+
+            const productPriceCO = document.createElement("p");
+            productPriceCO.className = "product-co__price";
+            productPriceCO.innerHTML = productPrice;
+
+            const totalCostCO = document.createElement("p");
+            totalCostCO.className = "product-co__price";
+            totalCostCO.innerHTML = totalCost;
+
+            finalProductsOrder.appendChild(productCOWrapper);
+
+            productCOWrapper.appendChild(thumbnail);
+            productCOWrapper.appendChild(productInfoWrapper);
+            productCOWrapper.appendChild(totalCostCO);
+
+            productInfoWrapper.appendChild(productNameCO);
+            productInfoWrapper.appendChild(productQttCO);
+            productInfoWrapper.appendChild(productPriceCO);
+
+            billCostCO.innerHTML = billCost.textContent;
+        });
+    });
