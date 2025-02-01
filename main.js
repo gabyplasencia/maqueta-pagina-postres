@@ -5,7 +5,7 @@ const cartItemsNumber = document.getElementById('items-number');
 const cartItemsWrapper = document.querySelector(".cart-items-wrapper");
 const billCost = document.getElementById("bill-cost");
 const confirmOrderBtn = document.getElementById("confirm-order");
-const finalProductsOrder = document.querySelector(".final-products-order-wrapper");
+const totalOrderWrapperCO = document.querySelector(".total-order-wrapper");
 const billCostCO = document.getElementById("bill-cost-co");
 let loadedData = {};
 
@@ -321,6 +321,25 @@ fetch("./data.json")
 
     confirmOrderBtn.addEventListener('click', () => {
         const productsInOrder = document.querySelectorAll(".item-in-cart-wrapper");
+        const confirmModal = document.getElementById("order-confirmed-modal");
+        const container = document.querySelector(".container");
+
+        confirmModal.style.display = "flex";
+        confirmModal.style.pointerEvents = "all";
+        // confirmModal.style.overflow = "scroll";
+
+        let overlay = document.createElement("div");
+        overlay.style.position = "absolute";
+        overlay.style.top = "0";
+        overlay.style.right = "0";
+        overlay.style.bottom = "0";
+        overlay.style.left = "0";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.65)";
+        overlay.style.zIndex = "10"
+        overlay.style.pointerEvents = "none";
+        container.style.pointerEvents = "none";
+        document.querySelector(".body").style.overflow = "hidden";
+        container.appendChild(overlay);
         
         productsInOrder.forEach ( product => {
             let productName = product.querySelector(".item-in-cart__product-name").textContent;
@@ -343,11 +362,14 @@ fetch("./data.json")
             });
 
             const productInfoWrapper = document.createElement("div");
-            productInfoWrapper.classList.add("product-info-wrapper");
+            productInfoWrapper.classList.add("product-co__info-wrapper");
 
             const productNameCO = document.createElement("strong");
             productNameCO.className = "product-co__name";
             productNameCO.innerHTML = productName;
+
+            const productQttPriceCO = document.createElement("div");
+            productQttPriceCO.classList.add("product-co__qtt-price-wrapper");
 
             const productQttCO = document.createElement("p");
             productQttCO.className = "product-co__quantity";
@@ -358,18 +380,19 @@ fetch("./data.json")
             productPriceCO.innerHTML = productPrice;
 
             const totalCostCO = document.createElement("p");
-            totalCostCO.className = "product-co__price";
+            totalCostCO.className = "product-co__total-price";
             totalCostCO.innerHTML = totalCost;
 
-            finalProductsOrder.appendChild(productCOWrapper);
+            totalOrderWrapperCO.appendChild(productCOWrapper);
 
             productCOWrapper.appendChild(thumbnail);
             productCOWrapper.appendChild(productInfoWrapper);
             productCOWrapper.appendChild(totalCostCO);
 
             productInfoWrapper.appendChild(productNameCO);
-            productInfoWrapper.appendChild(productQttCO);
-            productInfoWrapper.appendChild(productPriceCO);
+            productInfoWrapper.appendChild(productQttPriceCO);
+            productQttPriceCO.appendChild(productQttCO);
+            productQttPriceCO.appendChild(productPriceCO);
 
             billCostCO.innerHTML = billCost.textContent;
         });

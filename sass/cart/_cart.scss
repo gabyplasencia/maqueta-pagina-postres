@@ -95,6 +95,15 @@
     }
 }
 
-#confirm-order:hover {
-    background-color: hsl(13, 79%, 30%);
+
+@media (hover: hover) {
+    #confirm-order:hover {
+        background-color: hsl(13, 79%, 30%);
+    }
 }
+
+#confirm-order:active {
+    background-color: hsl(14, 91%, 13%);
+}
+
+

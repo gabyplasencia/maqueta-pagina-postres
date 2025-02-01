@@ -11,7 +11,7 @@
   --fw-600: 600;
   --fw-700: 700;
   --ff-main: "Red Hat Text", sans-serif;
-  --fz-small: 1.1rem;
+  --fz-small: 1rem;
   --fz-medium: 1.2rem;
   --fz-medium-big: 1.5rem;
   --fz-big: 2rem;
@@ -39,7 +39,8 @@ img {
 
 button,
 a,
-span {
+span,
+strong {
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
@@ -49,6 +50,7 @@ span {
 body {
   background-color: var(--rose-50);
   font-family: var(--ff-main);
+  position: relative;
 }
 
 .section-title {
@@ -66,8 +68,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  z-index: 1;
   width: 88dvw;
-  margin: 1rem auto;
+  margin: 0 auto;
+  padding-top: 1rem;
 }
 @media (min-width: 760px) {
   .container {
@@ -180,8 +184,13 @@ body {
      object-fit: contain;
 }
 
-#confirm-order:hover {
-  background-color: hsl(13, 79%, 30%);
+@media (hover: hover) {
+  #confirm-order:hover {
+    background-color: hsl(13, 79%, 30%);
+  }
+}
+#confirm-order:active {
+  background-color: hsl(14, 91%, 13%);
 }
 
 .item-in-cart-wrapper {
@@ -376,4 +385,134 @@ body {
   font-weight: var(--fw-600);
   color: var(--red);
   font-size: var(--fz-medium-big);
+}
+
+#order-confirmed-modal {
+  display: none;
+}
+
+.confirm-modal {
+  flex-direction: column;
+  gap: 2rem;
+  background-color: rgb(255, 255, 255);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  align-items: flex-start;
+  padding: 2rem 1.8rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+@media (min-width: 760px) {
+  .confirm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    width: 85dvw;
+    height: -moz-fit-content;
+    height: fit-content;
+    border-radius: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .confirm-modal {
+    width: 35dvw;
+  }
+}
+.confirm-modal__icon {
+  height: 3.5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.confirm-modal .section-title {
+  text-wrap: pretty;
+  margin-bottom: 0.6rem;
+  line-height: 1.1;
+}
+.confirm-modal__phrase {
+  color: var(--rose-500);
+  font-size: var(--fz-medium);
+}
+.confirm-modal .btn {
+  width: 100%;
+  font-weight: var(--fw-400);
+}
+@media (hover: hover) {
+  .confirm-modal .btn:hover {
+    background-color: hsl(13, 79%, 30%);
+  }
+}
+.confirm-modal .btn:active {
+  background-color: hsl(14, 91%, 13%);
+}
+
+.total-order-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: var(--rose-50);
+  width: 100%;
+  border-radius: 8px;
+  padding: 0.6rem 1.8rem;
+}
+
+.total-bill-co {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1.5rem;
+}
+.total-bill-co__text {
+  color: var(--rose-900);
+}
+.total-bill-co__cost {
+  font-size: var(--fz-medium-big);
+  font-weight: var(--fw-700);
+}
+
+.product-co-wrapper {
+  display: grid;
+  grid-template-columns: 0.2fr 0.6fr 0.2fr;
+  gap: 1rem;
+  align-items: center;
+  padding-block: 1.2rem;
+  border-bottom: 1px solid var(--rose-100);
+  font-weight: var(--fw-600);
+  color: var(--rose-900);
+}
+.product-co-wrapper .thumbnail {
+  width: 4rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 6px;
+}
+
+.product-co__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  font-size: var(--fz-small);
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-co__name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.product-co__qtt-price-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+.product-co__quantity {
+  color: var(--red);
+}
+.product-co__price {
+  font-weight: var(--fw-400);
+  color: var(--rose-500);
 }/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,143 @@
+@use "../globals/root" as r;
+
+#order-confirmed-modal {
+    display:none;
+}
+
+.confirm-modal {
+    flex-direction: column;
+    gap: 2rem;
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    align-items: flex-start;
+    padding: 2rem 1.8rem;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    @include r.media(760px){
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+
+        width: 85dvw;
+        height: fit-content;
+        border-radius: 15px;
+    }
+    @include r.media(1200px){
+        width: 35dvw;
+    }
+
+    &__icon {
+        height: 3.5rem;
+        object-fit: contain;
+    }
+
+    .section-title {
+        text-wrap: pretty;
+        margin-bottom: 0.6rem;
+        line-height: 1.1;
+    }
+
+    &__phrase {
+        color: var(--rose-500);
+        font-size: var(--fz-medium);
+    }
+
+    .btn {
+        width: 100%;
+        font-weight: var(--fw-400);
+    }
+
+    @media (hover: hover) {
+        .btn:hover {
+            background-color: hsl(13, 79%, 30%);
+        }
+    }
+
+    .btn:active {
+        background-color: hsl(14, 91%, 13%);
+    }
+}
+
+.total-order-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: var(--rose-50);
+    width: 100%;
+    border-radius: 8px;
+    padding: 0.6rem 1.8rem;
+}
+
+.total-bill-co {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.5rem;
+
+    &__text {
+        color: var(--rose-900);
+    }
+
+    &__cost {
+        font-size: var(--fz-medium-big);
+        font-weight: var(--fw-700);
+    }
+}
+
+.product-co-wrapper {
+    display: grid;
+    grid-template-columns: 0.2fr 0.6fr 0.2fr;
+    gap: 1rem;
+    align-items: center;
+    padding-block: 1.2rem;
+    border-bottom: 1px solid var(--rose-100);
+    font-weight: var(--fw-600);
+    color: var(--rose-900);
+
+    .thumbnail {
+        width: 4rem;
+        object-fit: contain;
+        border-radius: 6px;
+    }
+}
+
+.product-co {
+    &__info-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+        font-size: var(--fz-small);
+
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    &__name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__qtt-price-wrapper {
+        display: flex;
+        gap: 2rem;
+    }
+
+    &__quantity {
+        color: var(--red);
+    }
+
+    &__price {
+        font-weight: var(--fw-400);
+        color: var(--rose-500);
+    }
+
+}

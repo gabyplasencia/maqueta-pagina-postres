@@ -14,7 +14,7 @@
   <title>Frontend Mentor | Product list with cart</title>
 
 </head>
-<body>
+<body class="body">
   <main class="container">
 
     <section id="product-section">
@@ -52,15 +52,13 @@
 
   </main>
 
-  <section id="order-confirmed-modal">
-    <img class="order-confirmed-icon" src="./assets/images/icon-order-confirmed.svg" alt="ok-icon" aria-hidden="true">
-    <h3 class="section-title">Order Confirmed</h3>
-    <p class="order-confirmed-modal-phrase">We hope you enjoy your food!</p>
-
+  <section id="order-confirmed-modal" class="confirm-modal">
+    <img class="confirm-modal__icon" src="./assets/images/icon-order-confirmed.svg" alt="ok-icon" aria-hidden="true">
+    <div class="confirm-modal__header-wrapper">
+      <h3 class="section-title">Order Confirmed</h3>
+      <p class="confirm-modal__phrase">We hope you enjoy your food!</p>
+    </div>
     <div class="total-order-wrapper">
-      <div class="final-products-order-wrapper">
-
-      </div>
       <div class="total-bill-co">
         <p class="total-bill-co__text">Order Total</p>
         <span class="total-bill-co__cost" id="bill-cost-co"></span>

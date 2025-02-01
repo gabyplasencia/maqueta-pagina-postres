@@ -3,6 +3,7 @@
 body {
     background-color: var(--rose-50);
     font-family: var(--ff-main);
+    position: relative;
 }
 
 .section-title {
@@ -18,9 +19,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    z-index: 1;
 
     width: 88dvw;
-    margin: 1rem auto;
+    margin: 0 auto;
+    padding-top: 1rem;
     @include r.media(760px){
         width: 90dvw;
     }
