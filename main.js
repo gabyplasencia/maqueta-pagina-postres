@@ -7,6 +7,7 @@ const billCost = document.getElementById("bill-cost");
 const confirmOrderBtn = document.getElementById("confirm-order");
 const totalOrderWrapperCO = document.querySelector(".total-order-wrapper");
 const billCostCO = document.getElementById("bill-cost-co");
+const newOrderBtn = document.getElementById("new-order");
 let loadedData = {};
 
 fetch("./data.json")
@@ -326,9 +327,10 @@ fetch("./data.json")
 
         confirmModal.style.display = "flex";
         confirmModal.style.pointerEvents = "all";
-        // confirmModal.style.overflow = "scroll";
 
-        let overlay = document.createElement("div");
+        let overlay = document.querySelector(".overlay");
+        //overlay.className = "overlay";
+        overlay.style.display = "block";
         overlay.style.position = "absolute";
         overlay.style.top = "0";
         overlay.style.right = "0";
@@ -396,4 +398,46 @@ fetch("./data.json")
 
             billCostCO.innerHTML = billCost.textContent;
         });
+    });
+
+    newOrderBtn.addEventListener('click', () => {
+        let productCard = document.querySelectorAll(".product__card");
+        let cart = document.getElementById("cart-section");
+        let cartItems = cart.querySelectorAll(".item-in-cart-wrapper");
+        let confirmedModal = document.getElementById("order-confirmed-modal");
+        let confirmedItems = confirmedModal.querySelectorAll(".product-co-wrapper");
+
+        cartItems.forEach(item => {
+            item.remove();
+        });
+
+        confirmedItems.forEach(item => {
+            item.remove();
+        });
+
+        cart.querySelector(".wrapper-cart-empty").style.display = "flex";
+        cart.querySelector(".wrapper-cart-with-items").style.display = "none";
+        document.querySelector(".overlay").style.display = "none";
+        document.querySelector(".container").style.pointerEvents = "all";
+        confirmedModal.style.display = "none";
+        document.querySelector(".body").style.overflow = "scroll";
+        document.getElementById("items-number").innerHTML = "0";
+        document.getElementById("bill-cost").innerHTML = "$0.00";
+        document.getElementById("bill-cost-co").innerHTML = "0";
+
+        productCard.forEach(card => {
+            let image = card.querySelector(".product__wrapper-img");
+            let addBtn = card.querySelector(".product__cart-btn-add");
+            let qttBtn = card.querySelector(".product__cart-btn-quantity");
+            let btnQtt = card.querySelector(".quantity-item");
+
+            if(image.classList.contains("selected")){
+                image.classList.remove("selected");
+                addBtn.style.display = "flex";
+                qttBtn.style.display = "none";
+                btnQtt.innerHTML = "1";
+            }
+        });
+
+
     });
