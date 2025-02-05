@@ -26,6 +26,7 @@ body {
     padding-top: 1rem;
     @include r.media(760px){
         width: 90dvw;
+        padding-top: 3.5rem;
     }
     @include r.media(1440px){
         width: fit-content;
